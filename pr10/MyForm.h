@@ -300,7 +300,7 @@ namespace KursovayaRabota {
 
 	private: System::Void textBox5_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
-	//Создание функционала для кнопки "Решить уравнение"
+
 	private: System::Void button3_Click(System::Object^ sender, System::EventArgs^ e) {
 
 		double a, b, c, x1, x2, D;
@@ -312,7 +312,7 @@ namespace KursovayaRabota {
 		b = System::Convert::ToDouble(textBox2->Text);
 		c = System::Convert::ToDouble(textBox3->Text);
 
-		if (a != 0) {
+		if (a != 0 && b != 0 && c != 0) {
 			D = b * b - 4 * a * c;
 
 			if (D > 0) {
@@ -339,15 +339,73 @@ namespace KursovayaRabota {
 
 		}
 		else {
-			MessageBox::Show("Уравнение не является квадратным!");
+			if (a == 0 && b == 0 && c == 0)
+			{
+				MessageBox::Show("Уравнение верно при любом X");
+			}
+			if ((a == 0 && b == 0) && c != 0)
+			{
+				MessageBox::Show("Уравнение не имеет корней и является неверным");
+			}
+			if ((a != 0 && b != 0) && c == 0)
+			{
+				x1 = 0;
+				x2 = -b / a;
+
+				textBox4->Text = System::Convert::ToString(x1);
+				textBox5->Text = System::Convert::ToString(x2);
+
+				label8->Text = "Уравнение решено!";
+			}
+			if ((a != 0 && c != 0) && b == 0)
+			{
+				if ((-c / a) >= 0) 
+				{
+					x1 = sqrt(-c / a);
+					x2 = -sqrt(-c / a);
+
+					textBox4->Text = System::Convert::ToString(x1);
+					textBox5->Text = System::Convert::ToString(x2);
+
+					label8->Text = "Уравнение решено!";
+				}
+				else
+				{
+					MessageBox::Show("Уравнение не имеет корней");
+				}
+			}
+			if ((b == 0 && c == 0) && a != 0)
+			{
+				x1 = 0;
+
+				textBox4->Text = System::Convert::ToString(x1);
+
+				label8->Text = "Уравнение решено!";
+			}
+			if ((a == 0) && b != 0 && c != 0)
+			{
+				x1 = -c / b;
+
+				textBox4->Text = System::Convert::ToString(x1);
+
+				label8->Text = "Уравнение решено!";
+			}
+			if ((a == 0 && c == 0) && b != 0)
+			{
+				x1 = 0;
+
+				textBox4->Text = System::Convert::ToString(x1);
+
+				label8->Text = "Уравнение решено!";
+			}
 		}
 
 	}
-//Создание функционала для кнопки "Закрыть"
+
 private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e) {
 	this->Close();
 }
-//Создание функционала для кнопки "Сбросить"
+
 private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e) {
 	textBox1->Text = L"";
 	textBox2->Text = L"";
